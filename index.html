@@ -10,10 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/python/python.min.js"></script>
 
     <style>
-        /* Общие стили страницы */
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            background: linear-gradient(135deg, #d3d3d3, #a9a9a9);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,7 +27,6 @@
             margin-bottom: 20px;
         }
 
-        /* Стиль для textarea CodeMirror */
         .CodeMirror {
             width: 80%;
             height: 350px;
@@ -36,7 +34,6 @@
             border-radius: 5px;
         }
 
-        /* Стиль для формы ввода */
         input, button {
             padding: 12px;
             font-size: 1rem;
@@ -66,12 +63,10 @@
             border-color: #007BFF;
         }
 
-        /* Минимальные отступы */
         .container {
             text-align: center;
         }
 
-        /* Делаем страницу адаптивной */
         @media (max-width: 768px) {
             .CodeMirror {
                 width: 90%;
@@ -87,27 +82,24 @@
 <body>
 
     <div class="container">
-        <h1>Python Code Editor</h1>
+        <h1>Python </></h1>
         <textarea id="codeArea" placeholder="Write your Python code here..."></textarea><br>
         <input type="text" id="fileName" placeholder="Enter file name (e.g., script.py)">
-        <button onclick="downloadFile()">Download Python Code</button>
+        <button onclick="downloadFile()">Download Code</button>
     </div>
 
     <script>
-        // Инициализация CodeMirror с режимом Python
         var editor = CodeMirror.fromTextArea(document.getElementById("codeArea"), {
             lineNumbers: true,
             theme: "dracula",
-            mode: "python" // Только Python
+            mode: "python"
         });
 
-        // Функция для скачивания файла
         function downloadFile() {
             const code = editor.getValue();
             const fileName = document.getElementById("fileName").value || "untitled";
             const fileExtension = fileName.split('.').pop();
             
-            // Если расширение не указано, добавляется .py по умолчанию
             const extension = fileExtension === fileName ? "py" : fileExtension;
 
             const blob = new Blob([code], { type: "text/plain" });
