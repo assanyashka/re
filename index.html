@@ -3,37 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Code Editor</title>
+    <title>Python </> Editor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/dracula.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/python/python.min.js"></script>
 
     <style>
+        /* Общие стили страницы */
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #d3d3d3, #a9a9a9);
+            background: linear-gradient(135deg, #2b2b2b, #121212); /* Черный градиентный фон */
+            color: #fff;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
-            color: #333;
+            overflow: hidden;
+            transition: background 0.3s ease; /* Плавный переход для фона */
         }
 
+        /* Заголовок */
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
+            text-align: center;
         }
 
+        /* Контейнер для редактора */
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Стиль для textarea CodeMirror (редактор кода) */
         .CodeMirror {
             width: 80%;
             height: 350px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #fff;
         }
 
+        /* Стиль для формы ввода */
         input, button {
             padding: 12px;
             font-size: 1rem;
@@ -50,23 +68,82 @@
         }
 
         button {
-            background-color: #007BFF;
+            background-color: #FF0000;
             color: white;
             cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Анимация для кнопки "Download Code" */
+        @keyframes slideme {
+            0% {
+                left: -30px;
+                margin-left: 0px;
+            }
+            30% {
+                left: 110%;
+                margin-left: 80px;
+            }
+            100% {
+                left: 110%;
+                margin-left: 80px;
+            }
+        }
+
+        .btn-new {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .btn-new:after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 200px;
+            margin-left: 60px;
+            background: #fff;
+            opacity: 0.5;
+            position: absolute;
+            left: -40px;
+            top: -100px;
+            z-index: 1;
+            transform: rotate(45deg);
+            transition: all 0.1s;
+            animation-name: slideme;
+            animation-duration: 3s;
+            animation-delay: 0.05s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #cc0000;
         }
 
         input:focus, button:focus {
             border-color: #007BFF;
         }
 
-        .container {
-            text-align: center;
+        /* Кнопка для переключения темы */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #FF0000;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background 0.3s ease;
         }
 
+        .theme-toggle-btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* Делаем страницу адаптивной */
         @media (max-width: 768px) {
             .CodeMirror {
                 width: 90%;
@@ -81,25 +158,31 @@
 </head>
 <body>
 
+    <!-- Кнопка для смены темы -->
+    <div class="theme-toggle-btn" onclick="toggleTheme()">🌙</div>
+
     <div class="container">
-        <h1>Python </></h1>
+        <h1>Python </> Editor</h1>
         <textarea id="codeArea" placeholder="Write your Python code here..."></textarea><br>
         <input type="text" id="fileName" placeholder="Enter file name (e.g., script.py)">
-        <button onclick="downloadFile()">Download Code</button>
+        <button class="btn-new" onclick="downloadFile()">Download Python Code</button>
     </div>
 
     <script>
+        // Инициализация CodeMirror с режимом Python
         var editor = CodeMirror.fromTextArea(document.getElementById("codeArea"), {
             lineNumbers: true,
             theme: "dracula",
-            mode: "python"
+            mode: "python" // Только Python
         });
 
+        // Функция для скачивания файла
         function downloadFile() {
             const code = editor.getValue();
             const fileName = document.getElementById("fileName").value || "untitled";
             const fileExtension = fileName.split('.').pop();
             
+            // Если расширение не указано, добавляется .py по умолчанию
             const extension = fileExtension === fileName ? "py" : fileExtension;
 
             const blob = new Blob([code], { type: "text/plain" });
@@ -107,6 +190,18 @@
             link.href = URL.createObjectURL(blob);
             link.download = fileName + "." + extension;
             link.click();
+        }
+
+        // Функция для переключения темы
+        function toggleTheme() {
+            const currentBg = document.body.style.background;
+            if (currentBg === "linear-gradient(135deg, #2b2b2b, #121212)") {
+                document.body.style.background = "linear-gradient(135deg, #d3d3d3, #a9a9a9)"; // День
+                document.querySelector('.theme-toggle-btn').innerText = "☀️"; // Иконка дня
+            } else {
+                document.body.style.background = "linear-gradient(135deg, #2b2b2b, #121212)"; // Ночь
+                document.querySelector('.theme-toggle-btn').innerText = "🌙"; // Иконка ночи
+            }
         }
     </script>
 
