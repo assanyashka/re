@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .CodeMirror {
+            width: 80%;
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Code Editor</h1>
+    
+    <select id="languageSelect" onchange="changeMode()">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="css">CSS</option>
+    </select><br>
+    
+    <textarea id="codeArea" placeholder="Write your code here..."></textarea><br>
+    <input type="text" id="fileName" placeholder="Enter file name (e.g., script.py)" style="width: 60%; padding: 5px;">
+    <button onclick="downloadFile()">Download Code</button>
+
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("codeArea"), {
+            lineNumbers: true,
+            theme: "dracula",
+            mode: "python" // Default mode
+        });
+
+        function changeMode() {
+            var selectedLanguage = document.getElementById("languageSelect").value;
+            editor.setOption("mode", selectedLanguage);
+        }
+
+        function downloadFile() {
+            const code = editor.getValue();
+            const fileName = document.getElementById("fileName").value || "untitled";
+            const fileExtension = fileName.split('.').pop();
+            
+            // If no extension is provided, add .txt by default
+            const extension = fileExtension === fileName ? "txt" : fileExtension;
+
+            const blob = new Blob([code], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName + "." + extension;
+            link.click();
+        }
+    </script>
+
+</body>
+</html>
