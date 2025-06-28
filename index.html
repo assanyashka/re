@@ -1,53 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Telegram Assa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR для Telegram</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background: #0e0e0e;
-      color: white;
+      color: #fff;
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
+      text-align: center;
     }
-    h1 {
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-    }
-    #qrcode canvas {
+    #qrcode {
+      background: white;
+      padding: 12px;
       border-radius: 16px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.1);
     }
   </style>
 </head>
 <body>
 
-  <h1>QR-код Telegram: @codermasochist</h1>
+  <h1>Telegram QR: @codermasochist</h1>
   <div id="qrcode"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <!-- Подключение CDN библиотеки -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
   <script>
-    const telegramLink = "https://t.me/codermasochist";
-    QRCode.toCanvas(
-      document.getElementById('qrcode'),
-      telegramLink,
-      {
-        color: {
-          dark: '#ffffff',
-          light: '#0e0e0e'
-        },
-        width: 200
-      },
-      function (error) {
-        if (error) console.error(error);
-      }
-    );
+    const container = document.getElementById('qrcode');
+    QRCode.toCanvas('https://t.me/codermasochist', { width: 256 }, (err, canvas) => {
+      if (err) return console.error('Ошибка генерации QR:', err);
+      container.appendChild(canvas);
+    });
   </script>
 
 </body>
