@@ -1,167 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Python </> Code Editor</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Telegram Assa</title>
   <style>
-    html, body {
+    body {
+      background: #0e0e0e;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: linear-gradient(to bottom right, #0f0f0f, #1a1a1a);
-      transition: background 1s ease;
-      font-family: Arial, sans-serif;
     }
-
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
     h1 {
-      font-size: 40px;
       margin-bottom: 20px;
-      animation: rainbow 5s infinite linear;
-      background: linear-gradient(90deg, yellow, red, blue, green, black);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.5rem;
     }
-
-    @keyframes rainbow {
-      0% {background-position: 0%;}
-      100% {background-position: 100%;}
-    }
-
-    .CodeMirror {
-      width: 600px;
-      height: 400px;
-      font-size: 16px;
-      background: #2b2b2b;
-      color: #f8f8f2;
-      border-radius: 8px;
-      padding: 10px;
-    }
-
-    .btn-new {
-      overflow: hidden;
-      position: relative;
-      padding: 10px 20px;
-      color: #fff;
-      background: #28a745;
-      border: none;
-      border-radius: 5px;
-      margin-top: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s ease;
-    }
-
-    .btn-new:after {
-      content: "";
-      display: block;
-      width: 30px;
-      height: 200px;
-      margin-left: 60px;
-      background: #fff;
-      opacity: 0.5;
-      position: absolute;
-      left: -40px;
-      top: -100px;
-      z-index: 1;
-      transform: rotate(45deg);
-      transition: all 0.1s;
-      animation-name: slideme;
-      animation-duration: 3s;
-      animation-delay: 0.05s;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-    }
-
-    @keyframes slideme {
-      0% { left: -30px; margin-left: 0px; }
-      30% { left: 110%; margin-left: 80px; }
-      100% { left: 110%; margin-left: 80px; }
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      transition: transform 0.3s ease;
-    }
-
-    .theme-toggle svg {
-      width: 30px;
-      height: 30px;
-      fill: white;
-      transition: fill 0.5s ease;
-    }
-
-    body.light-mode {
-      background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
-    }
-
-    body.light-mode .CodeMirror {
-      background: #f8f8f8;
-      color: #222;
-    }
-
-    body.light-mode .theme-toggle svg {
-      fill: black;
-    }
-
-    body.light-mode .btn-new {
-      background: #28a745;
-      color: black;
+    #qrcode canvas {
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
-    <svg id="theme-icon" viewBox="0 0 24 24">
-      <path d="M12 4.354a.5.5 0 0 1 .5.5v2.792a.5.5 0 0 1-1 0V4.854a.5.5 0 0 1 .5-.5Zm5.657 1.95a.5.5 0 0 1 .707.707l-1.976 1.976a.5.5 0 0 1-.707-.707l1.976-1.976Zm4.243 5.243a.5.5 0 0 1 0 1h-2.792a.5.5 0 0 1 0-1h2.792Zm-4.243 5.657a.5.5 0 0 1-.707.707l-1.976-1.976a.5.5 0 0 1 .707-.707l1.976 1.976ZM12 17.146a.5.5 0 0 1-.5-.5v-2.792a.5.5 0 0 1 1 0v2.792a.5.5 0 0 1-.5.5Zm-5.657-1.95a.5.5 0 0 1-.707-.707l1.976-1.976a.5.5 0 0 1 .707.707l-1.976 1.976ZM4.354 12a.5.5 0 0 1-.5-.5v-2.792a.5.5 0 0 1 1 0V11.5a.5.5 0 0 1-.5.5Zm1.95-5.657a.5.5 0 0 1 .707-.707l1.976 1.976a.5.5 0 0 1-.707.707L6.304 6.343Z"/>
-    </svg>
-  </button>
 
-  <div class="container">
-    <h1>Python &lt;/&gt;</h1>
-    <textarea id="code">// Write your Python code here</textarea>
-    <br>
-    <button class="btn-new" onclick="downloadCode()">Download Python Code</button>
-  </div>
+  <h1>QR-код Telegram: @codermasochist</h1>
+  <div id="qrcode"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script>
-    const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-      lineNumbers: true,
-      mode: "python",
-      theme: "default"
-    });
-
-    function downloadCode() {
-      const code = editor.getValue();
-      const blob = new Blob([code], { type: "text/x-python" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "script.py";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-    }
+    const telegramLink = "https://t.me/codermasochist";
+    QRCode.toCanvas(
+      document.getElementById('qrcode'),
+      telegramLink,
+      {
+        color: {
+          dark: '#ffffff',
+          light: '#0e0e0e'
+        },
+        width: 200
+      },
+      function (error) {
+        if (error) console.error(error);
+      }
+    );
   </script>
+
 </body>
 </html>
