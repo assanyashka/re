@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assa | donate</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hamburger Menu -->
+    <div class="menu-toggle" id="menu-toggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <a href="info.html">info</a>
+        <a href="donate.html">donate</a>
+        <a href="links.html">links</a>
+        <div class="close-btn" id="close-btn">&times;</div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Donate</h1>
+        
+        <div class="donation-grid">
+            <!-- Crypto Bot -->
+            <div class="donation-card">
+                <div class="card-icon">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <h2>Crypto Bot</h2>
+                <p>@send</p>
+                <a href="http://t.me/send?start=IVg0pGtJJkA3" class="donate-btn pulse">
+                    Donate <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+
+            <!-- Ton -->
+            <div class="donation-card">
+                <div class="card-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h2>Ton</h2>
+                <p>wallet address: addresserror.ton</p>
+                <button class="copy-btn" onclick="copyToClipboard('addresserror.ton')">
+                    Copy <i class="fas fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- Donate Bot -->
+            <div class="donation-card">
+                <div class="card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2>As: Donate Bot</h2>
+                <p>бот для донатов в звёздах</p>
+                <a href="https://t.me/asdonatebot" class="donate-btn pulse">
+                    Open <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>(c) codermasochist. All right reserved.</p>
+    </footer>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>
