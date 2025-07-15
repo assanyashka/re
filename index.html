@@ -1,45 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR для Telegram</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #0e0e0e;
-      color: #fff;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    #qrcode {
-      background: white;
-      padding: 12px;
-      border-radius: 16px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assa | Redirecting</title>
+    <meta http-equiv="refresh" content="0; url=info.html">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-  <h1>Telegram QR: @codermasochist</h1>
-  <div id="qrcode"></div>
-
-  <!-- Подключение CDN библиотеки -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-
-  <script>
-    const container = document.getElementById('qrcode');
-    QRCode.toCanvas('https://t.me/codermasochist', { width: 256 }, (err, canvas) => {
-      if (err) return console.error('Ошибка генерации QR:', err);
-      container.appendChild(canvas);
-    });
-  </script>
-
+    <div class="redirect-container">
+        <p>Redirecting to <a href="info.html">/info</a>...</p>
+    </div>
 </body>
 </html>
